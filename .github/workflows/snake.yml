@@ -1,17 +1,21 @@
  name: Generate Contribution Snake
 
-"on":
+on:
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/snake.yml"
+
+permissions:
+  contents: write
 
 jobs:
   generate:
-    permissions:
-      contents: write
-
     runs-on: ubuntu-24.04
-
     timeout-minutes: 10
 
     steps:
