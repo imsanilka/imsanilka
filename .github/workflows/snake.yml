@@ -1,18 +1,21 @@
  name: Generate Contribution Snake
 
-on:
+"on":
   workflow_dispatch:
   schedule:
     - cron: "0 0 * * *"
 
 jobs:
   generate:
-    runs-on: ubuntu-24.04
     permissions:
       contents: write
 
+    runs-on: ubuntu-24.04
+
+    timeout-minutes: 10
+
     steps:
-      - name: Generate snake
+      - name: Generate contribution snake
         uses: Platane/snk/svg-only@v3
         with:
           github_user_name: imsanilka
@@ -20,9 +23,10 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      - name: Publish snake
+      - name: Publish contribution snake
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./dist
           publish_branch: output
+          commit_message: "Update contribution snake"
